@@ -1,5 +1,5 @@
-const clientId = 'YOUR_SPOTIFY_CLIENT_ID'; // Replace with your Spotify client ID
-const redirectUri = 'YOUR_REDIRECT_URI'; // Replace with your redirect URI
+const clientId = '8faed0544bc14684a6e31ba2c8ad8685'; // Replace with your Spotify client ID
+const redirectUri = 'https://taylor-mitchell.github.io/BeatRunner/'; // Replace with your redirect URI
 const scopes = 'user-read-private user-read-email playlist-read-private playlist-read-collaborative';
 
 function loginToSpotify() {
