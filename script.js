@@ -4,6 +4,7 @@ const scopes = 'user-read-private user-read-email playlist-read-private playlist
 
 function loginToSpotify() {
     const authUrl = `https://accounts.spotify.com/authorize?client_id=${clientId}&redirect_uri=${encodeURIComponent(redirectUri)}&scope=${encodeURIComponent(scopes)}&response_type=token`;
+    console.log(authUrl);
     window.location.href = authUrl;
 }
 
