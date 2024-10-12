@@ -128,7 +128,7 @@ function displayFilteredTracks(tracks) {
         return;
     }
 
-    console.log("Found ${tracks.length} tracks");
+    console.log(tracks.length);
 
     tracks.forEach(track => {
         const li = document.createElement('li');
