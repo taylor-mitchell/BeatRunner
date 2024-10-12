@@ -76,13 +76,15 @@ async function getFilteredTracks(playlistId, targetBPM, accessToken) {
     const upperBound = targetBPM + bpmRange;
 
     // Filter tracks based on BPM range
-    const filteredTracks = audioFeatures.filter(feature => {
-        return feature.tempo >= lowerBound && feature.tempo <= upperBound;
-    });
+    const filteredTrackIds = audioFeatures
+        .filter(feature => feature.tempo >= lowerBound && feature.tempo <= upperBound)
+        .map(feature => feature.id); // Store the track IDs that match
+
+    // Fetch track details for filtered track IDs
+    const filteredTrackDetails = await fetchTrackDetails(filteredTrackIds, accessToken);
 
     console.log(filteredTracks.length);
-
-    return filteredTracks;
+    return filteredTrackDetails;
 }
 
 async function fetchTrackIds(playlistId, accessToken) {
@@ -121,6 +123,22 @@ async function fetchAudioFeatures(trackIds, accessToken) {
     }
 }
 
+async function fetchTrackDetails(trackIds, accessToken) {
+    const response = await fetch(`https://api.spotify.com/v1/tracks?ids=${trackIds.join(',')}`, {
+        headers: {
+            'Authorization': `Bearer ${accessToken}`
+        }
+    });
+
+    if (response.ok) {
+        const data = await response.json();
+        return data.tracks; // This contains track details including name and artists
+    } else {
+        console.error('Failed to fetch track details:', response.status, response.statusText);
+        return [];
+    }
+}
+
 function displayFilteredTracks(tracks) {
     const songList = document.getElementById('song-list');
     songList.innerHTML = ''; // Clear previous results
@@ -132,7 +150,7 @@ function displayFilteredTracks(tracks) {
 
     tracks.forEach(track => {
         const li = document.createElement('li');
-        li.textContent = `${track.name}`;
+        li.textContent = `${track.name} by ${track.artists.map(artist => artist.name).join(', ')}`;
         songList.appendChild(li);
     });
 
