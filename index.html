@@ -1,0 +1,32 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>Spotify BPM Filter</title>
+    <link rel="stylesheet" href="styles.css">
+</head>
+<body>
+    <div class="container">
+        <h1>Spotify BPM Filter</h1>
+        <button id="login">Log in with Spotify</button>
+
+        <div id="playlist-section" class="hidden">
+            <h2>Select a Playlist</h2>
+            <select id="playlist-dropdown"></select>
+
+            <h2>Enter BPM</h2>
+            <input type="number" id="bpm-input" placeholder="Enter BPM" min="0">
+
+            <button id="filter-btn">Filter Songs</button>
+        </div>
+
+        <div id="results" class="hidden">
+            <h2>Filtered Songs</h2>
+            <ul id="song-list"></ul>
+        </div>
+    </div>
+
+    <script src="script.js"></script>
+</body>
+</html>
