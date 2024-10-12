@@ -128,6 +128,8 @@ function displayFilteredTracks(tracks) {
         return;
     }
 
+    console.log("Found ${tracks.length} tracks");
+
     tracks.forEach(track => {
         const li = document.createElement('li');
         li.textContent = `${track.name} by ${track.artists.map(artist => artist.name).join(', ')}`;
