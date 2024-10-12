@@ -5,6 +5,10 @@ const scopes = 'user-read-private user-read-email playlist-read-private playlist
 function loginToSpotify() {
     const authUrl = `https://accounts.spotify.com/authorize?client_id=${clientId}&redirect_uri=${encodeURIComponent(redirectUri)}&scope=${encodeURIComponent(scopes)}&response_type=token`;
     window.location.href = authUrl;
+    localStorage.setItem('spotifyToken', 'your-token-here'); // Example token
+    document.getElementById('playlist-section').classList.remove('hidden');
+    document.getElementById('logoutButton').classList.remove('hidden'); // Show logout button
+    this.classList.add('hidden'); // Hide login button
 }
 
 function handleRedirect() {
@@ -161,4 +165,15 @@ function toggleSection(sectionId, show) {
     const section = document.getElementById(sectionId);
     section.classList.toggle('hidden', !show);
 }
+
+function logout() {
+    // Clear user session data
+    localStorage.removeItem('spotifyToken');
+    // Redirect to the login page or refresh
+    window.location.reload(); // Refreshing the page for demonstration
+}
+
+// Event listener for the logout button
+document.getElementById('logoutButton').addEventListener('click', logout);
+
 
