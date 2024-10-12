@@ -52,12 +52,6 @@ document.getElementById('login').addEventListener('click', loginToSpotify);
 // Handle the redirect to extract the access token
 window.addEventListener('load', handleRedirect);
 
-// Function to show/hide sections based on state
-function toggleSection(sectionId, show) {
-    const section = document.getElementById(sectionId);
-    section.classList.toggle('hidden', !show);
-}
-
 document.getElementById('filter-btn').addEventListener('click', async () => {
     const bpm = parseFloat(document.getElementById('bpm-input').value);
     const playlistId = document.getElementById('playlist-dropdown').value;
@@ -90,6 +84,7 @@ async function getFilteredTracks(playlistId, targetBPM, accessToken) {
 }
 
 async function fetchTrackIds(playlistId, accessToken) {
+    console.log("fetching track IDs");
     const response = await fetch(`https://api.spotify.com/v1/playlists/${playlistId}/tracks`, {
         headers: {
             'Authorization': `Bearer ${accessToken}`
@@ -98,6 +93,7 @@ async function fetchTrackIds(playlistId, accessToken) {
 
     if (response.ok) {
         const data = await response.json();
+        console.log("Track IDs fetched");
         return data.items.map(item => item.track.id);
     } else {
         console.error('Failed to fetch tracks:', response.status, response.statusText);
@@ -106,6 +102,7 @@ async function fetchTrackIds(playlistId, accessToken) {
 }
 
 async function fetchAudioFeatures(trackIds, accessToken) {
+    console.log("fetching Audio Features");
     const response = await fetch(`https://api.spotify.com/v1/audio-features?ids=${trackIds.join(',')}`, {
         headers: {
             'Authorization': `Bearer ${accessToken}`
@@ -113,6 +110,7 @@ async function fetchAudioFeatures(trackIds, accessToken) {
     });
 
     if (response.ok) {
+        console.log("Audio Features fetched");
         const data = await response.json();
         return data.audio_features;
     } else {
@@ -137,5 +135,11 @@ function displayFilteredTracks(tracks) {
     });
 
     document.getElementById('results').classList.remove('hidden');
+}
+
+// Function to show/hide sections based on state
+function toggleSection(sectionId, show) {
+    const section = document.getElementById(sectionId);
+    section.classList.toggle('hidden', !show);
 }
 
