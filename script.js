@@ -80,6 +80,8 @@ async function getFilteredTracks(playlistId, targetBPM, accessToken) {
         return feature.tempo >= lowerBound && feature.tempo <= upperBound;
     });
 
+    console.log(filteredTracks.length);
+
     return filteredTracks;
 }
 
@@ -128,11 +130,9 @@ function displayFilteredTracks(tracks) {
         return;
     }
 
-    console.log(tracks.length);
-
     tracks.forEach(track => {
         const li = document.createElement('li');
-        li.textContent = `${track.name} by ${track.artists.map(artist => artist.name).join(', ')}`;
+        li.textContent = `${track.name}`;
         songList.appendChild(li);
     });
 
