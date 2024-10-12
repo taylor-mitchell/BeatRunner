@@ -83,7 +83,6 @@ async function getFilteredTracks(playlistId, targetBPM, accessToken) {
     // Fetch track details for filtered track IDs
     const filteredTrackDetails = await fetchTrackDetails(filteredTrackIds, accessToken);
 
-    console.log(filteredTracks.length);
     return filteredTrackDetails;
 }
 
