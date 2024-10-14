@@ -2,13 +2,24 @@ const clientId = '8faed0544bc14684a6e31ba2c8ad8685'; // Replace with your Spotif
 const redirectUri = 'https://taylor-mitchell.github.io/BeatRunner/'; // Replace with your redirect URI
 const scopes = 'user-read-private user-read-email playlist-read-private playlist-read-collaborative';
 
+
 function loginToSpotify() {
     const authUrl = `https://accounts.spotify.com/authorize?client_id=${clientId}&redirect_uri=${encodeURIComponent(redirectUri)}&scope=${encodeURIComponent(scopes)}&response_type=token`;
     window.location.href = authUrl;
-    localStorage.setItem('spotifyToken', 'your-token-here'); // Example token
+
+    // Use sessionStorage instead of localStorage
+    sessionStorage.setItem('spotifyToken', 'your-token-here'); // Example token
     document.getElementById('playlist-section').classList.remove('hidden');
     document.getElementById('logoutButton').classList.remove('hidden'); // Show logout button
     this.classList.add('hidden'); // Hide login button
+}
+
+// To handle logout and clear the session storage
+function logoutFromSpotify() {
+    sessionStorage.removeItem('spotifyToken'); // Clear token
+    document.getElementById('playlist-section').classList.add('hidden');
+    document.getElementById('logoutButton').classList.add('hidden'); // Hide logout button
+    document.getElementById('loginButton').classList.remove('hidden'); // Show login button
 }
 
 function handleRedirect() {
@@ -168,7 +179,7 @@ function toggleSection(sectionId, show) {
 
 function logout() {
     // Clear user session data
-    localStorage.removeItem('spotifyToken');
+    lopgoutFromSpotify();
     // Redirect to the login page or refresh
     window.location.reload(); // Refreshing the page for demonstration
 }
