@@ -8,7 +8,7 @@ function loginToSpotify() {
     window.location.href = authUrl;
 
     // Use sessionStorage instead of localStorage
-    sessionStorage.setItem('spotifyToken', 'your-token-here'); // Example token
+    //sessionStorage.setItem('spotifyAccessToken', 'your-token-here'); // Example token
     document.getElementById('playlist-section').classList.remove('hidden');
     document.getElementById('logoutButton').classList.remove('hidden'); // Show logout button
     this.classList.add('hidden'); // Hide login button
@@ -16,7 +16,7 @@ function loginToSpotify() {
 
 // To handle logout and clear the session storage
 function logoutFromSpotify() {
-    sessionStorage.removeItem('spotifyToken'); // Clear token
+    sessionStorage.removeItem('spotifyAccessToken'); // Clear token
     document.getElementById('playlist-section').classList.add('hidden');
     document.getElementById('logoutButton').classList.add('hidden'); // Hide logout button
     document.getElementById('loginButton').classList.remove('hidden'); // Show login button
@@ -30,9 +30,10 @@ function handleRedirect() {
 
         if (accessToken) {
             // Store the access token for future API calls
-            localStorage.setItem('spotifyAccessToken', accessToken);
+            sessionStorage.setItem('spotifyAccessToken', accessToken);
             document.getElementById('playlist-section').classList.remove('hidden');
             document.getElementById('login').classList.add('hidden');
+            document.getElementById('logoutButton').classList.remove('hidden');
             fetchPlaylists(accessToken);
         }
     }
